@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mariadb_laravel
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 33060:3306
+    volumes:
+      - ./schemas:/var/lib/mysql
+    networks:
+      laravel_net:
+        aliases:
+          - mariadb_host
+volumes:
+  schemas: {}
+networks:
+  laravel_net:
+    name: network_laravel_net
+    driver: bridge
